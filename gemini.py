@@ -6,15 +6,12 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chains import RetrievalQA, ChatVectorDBChain
 from langchain.prompts import PromptTemplate
-import config
 from pymongo import MongoClient
 from langchain.retrievers.document_compressors import LLMChainExtractor
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain_core.documents import Document
 
 config.COMPANY_ID = '611d3a5046f3c600012f81e1'
-
-# genai.configure(api_key=config.GOOGLE_API_KEY)
 
 def get_conversational_chain():
     prompt_template = """
@@ -48,7 +45,7 @@ def get_conversational_chain():
     prompt = PromptTemplate(template=prompt_template, input_variables=["context", "question", "history"])
     llm = ChatGoogleGenerativeAI(
         model="gemini-1.0-pro",
-        google_api_key=config.GOOGLE_API_KEY,
+        google_api_key="AIzaSyBsgCgtPDG9Jwo-lmDpS8KXX9obpb0x3Fk",
         temperature=1)
     chain = load_qa_chain(llm,
                           chain_type="stuff",
@@ -80,7 +77,7 @@ def execute(user_question, conversation_history):
 
     embeddings = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001",
-        google_api_key=config.GOOGLE_API_KEY)
+        google_api_key="AIzaSyBsgCgtPDG9Jwo-lmDpS8KXX9obpb0x3Fk")
 
     # embedded_query = embeddings.embed_query(user_question)
 
